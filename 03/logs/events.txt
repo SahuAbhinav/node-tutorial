@@ -1,0 +1,2 @@
+20221228	 12:03:17	 93673d6a-d650-46c1-a093-8bf60f878990 	 This is Emiiter log
+20221228	 12:04:58	 8900e9b6-9eff-4da2-bd75-f8143e58f818 	 logs	This is Emiiter log
