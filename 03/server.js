@@ -8,9 +8,10 @@ const server  = http.createServer((req, res) => {
 
     console.log(req.url, req.method);
 
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attachment;filename=report.csv");
     res.writeHead(200);
-    res.end(`{"message": "This is a JSON response"}`);
+    res.end(`id,name,email\n1,Sammy Shark,shark@ocean.com`);
    
 })
 
