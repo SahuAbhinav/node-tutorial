@@ -39,6 +39,8 @@ app.use(express.static('public'));
 app.use('/subdir', require('./routes/subdir'));
 
 app.use('/employee', require('./routes/api/employee'));
+app.use('/register', require('./routes/api/register'));
+app.use('/auth', require('./routes/api/auth'));
 
 
 app.get("/", (req, res) => {
