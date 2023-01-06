@@ -2,17 +2,14 @@ const express = require('express');
 const path = require('path');
 const fsPromises = require('fs').promises;
 const cors = require('cors');
-const { json } = require('express');
-
+const verifyJWT = require('./middelware/verifyJWT');
+const cookieParser = require('cookie-parser');
+const myLogger = require('./middelware/logger');
 const app = express();
 const PORT = 3005
 
 
-const myLogger = function (req, res, next) {
-    console.log('LOGGED')
-    // call appropiate url method using next()
-    next()
-}
+
 const whilteList = ["https://mail.google.com", "http://localhost:3000"]
 var corsOptions = {
     origin: (origin, callback) => {
@@ -29,19 +26,24 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// call at every url call
-app.use(myLogger);
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
+// call at every url call
+app.use(myLogger);
 app.use('/subdir', require('./routes/subdir'));
 
-app.use('/employee', require('./routes/api/employee'));
+
 app.use('/register', require('./routes/api/register'));
 app.use('/auth', require('./routes/api/auth'));
+app.use('/refresh', require('./routes/api/refresh'));
 
+app.use(verifyJWT)
+app.use('/employee', require('./routes/api/employee'));
 
 app.get("/", (req, res) => {
 
